@@ -15,14 +15,15 @@ import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import './../css/styles.css';
 
 let appMain = document.getElementById('main');
-let appData = appMain.dataset;
+console.log(document);
+let appData = !appMain ? {} : appMain.dataset;
 
 let pathPrefix = "";
 let proxyPathMatch = window.location.pathname.match(/\/api\/v1\/namespaces\/.*\/proxy/g);
 if (proxyPathMatch) {
   pathPrefix = proxyPathMatch[0];
 }
-
+console.log(pathPrefix);
 let api = ApiHelpers(pathPrefix);
 
 // prefix all links in the app with `pathPrefix`
