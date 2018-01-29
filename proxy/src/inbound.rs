@@ -9,8 +9,6 @@ use tower_router::Recognize;
 
 use bind;
 use ctx;
-use control::discovery;
-use transparency;
 
 type Bind<B> = bind::Bind<Arc<ctx::Proxy>, B>;
 
@@ -33,23 +31,12 @@ impl<B> Inbound<B> {
 impl<B> Recognize for Inbound<B>
 where
     B: tower_h2::Body + 'static,
-    bind::NewHttp<B>: tower::NewService<
-        Request = http::Request<B>,
-        Response = bind::HttpResponse
-    >,
-    bind::BindProtocol<Arc<ctx::Proxy>, B>: discovery::Bind,
-    bind::Client<B>: tower::NewService<
-        Request = http::Request<B>,
-        Response = http::Response<transparency::HttpBody>,
-        Error = tower_h2::client::Error,
-    >
 {
     type Request = http::Request<B>;
     type Response = bind::HttpResponse;
     type Error = tower_buffer::Error<
         <bind::Service<B> as tower::Service>::Error
     >;
-    // type Error = tower_buffer::Error<E>;
     type Key = (SocketAddr, bind::Protocol);
     type RouteError = ();
     type Service = Buffer<bind::Service<B>>;

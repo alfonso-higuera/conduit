@@ -312,8 +312,6 @@ where
     >
         + 'static,
     G: GetOriginalDst + 'static,
-    bind::NewHttp<B>: tower::NewService,
-    bind::Client<B> : tower::NewService
 {
     let router = Router::new(recognize);
     let stack = Arc::new(NewServiceFn::new(move || {

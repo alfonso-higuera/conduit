@@ -42,10 +42,9 @@ impl<B> Outbound<B> {
 impl<B> Recognize for Outbound<B>
 where
     B: tower_h2::Body + 'static,
-    BindProtocol<B>: discovery::Bind<Request=http::Request<B>>,
 {
     type Request = http::Request<B>;
-    type Response = <Self::Service as tower::Service>::Response;
+    type Response = bind::HttpResponse;
     type Error = <Self::Service as tower::Service>::Error;
     type Key = (FullyQualifiedAuthority, Protocol);
     type RouteError = ();
