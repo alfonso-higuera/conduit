@@ -1,6 +1,5 @@
 [workspace]
 members = [
-  "codegen",
   "futures-mpsc-lossy",
   "proxy",
   "tower-router",

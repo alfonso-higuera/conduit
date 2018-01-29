@@ -10,7 +10,6 @@
 # compile.
 FROM rust:1.23.0 as build
 WORKDIR /usr/src/conduit
-COPY codegen ./codegen
 COPY futures-mpsc-lossy ./futures-mpsc-lossy
 COPY tower-router ./tower-router
 COPY Cargo.toml Cargo.lock ./
