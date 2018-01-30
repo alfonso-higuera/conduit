@@ -1,6 +1,8 @@
 // use the same babel compilation etc. as what's defined in the webpack config
 var webpackConfig = require('./webpack.config.js');
 
+process.env.CHROME_BIN = require('puppeteer').executablePath()
+
 // Karma configuration
 module.exports = function(config) {
   config.set({
@@ -13,7 +15,7 @@ module.exports = function(config) {
       'test/*.+(js|jsx)': ['webpack']
     },
     reporters: ['nyan'],
-    browsers: ['jsdom'],
+    browsers: ['ChromeHeadless'],
     webpack: webpackConfig,
     webpackMiddleware: {
       stats: 'normal'
